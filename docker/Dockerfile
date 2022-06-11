@@ -1,7 +1,11 @@
 FROM ubuntu:latest
 
-RUN apt-get update -y && apt-get install -y unzip wget && wget https://github.com/chaitin/xray/releases/latest/download/xray_linux_amd64.zip
+WORKDIR /opt
 
-RUN unzip xray_linux_amd64.zip
+RUN apt-get update -y && apt-get install -y unzip wget
 
-COPY ./xray_linux_amd64 /opt/hummerrisk/xray/
+RUN wget https://github.com/chaitin/xray/releases/latest/download/xray_linux_amd64.zip -O /opt/xray_linux_amd64.zip \
+     && cd /opt && unzip xray_linux_amd64.zip \
+     && mkdir -p /opt/hummerrisk/xray \
+     && cp -rp /opt/xray_linux_amd64 /opt/hummerrisk/xray
+
